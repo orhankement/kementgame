@@ -7,6 +7,20 @@ body {
   line-height: 1.6;
 }
 
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  background-color: #111;
+  color: #fff;
+  padding: 20px 0;
+}
+
 header .container {
   display: flex;
   justify-content: space-between;
@@ -20,13 +34,14 @@ header h1 {
   text-align: left;
 }
 
-
+/* Navigation */
 nav ul {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   list-style: none;
   padding: 0;
-  margin-top: 10px;
+  margin: 0;
+  flex-wrap: wrap;
 }
 
 nav li {
@@ -43,6 +58,7 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* Bölüm Stilleri */
 .section {
   padding: 60px 0;
 }
@@ -67,6 +83,7 @@ nav a:hover {
   text-align: center;
 }
 
+/* Footer */
 footer {
   background-color: #111;
   color: #fff;
