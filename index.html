@@ -3,123 +3,706 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kement Studios - Hayal Gücünü Kementle</title>
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>HaberNet - Güncel Haberler</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(102, 126, 234, 0.1);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            background: rgba(102, 126, 234, 0.2);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin: 20px auto;
+            padding: 15px;
+            max-width: 1200px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-links a:hover::before {
+            left: 0;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white !important;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .breaking-news {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(238, 90, 36, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .breaking-news h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .breaking-icon {
+            animation: flash 1s infinite;
+        }
+
+        @keyframes flash {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-category {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .read-more {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .trending-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .trending-item:hover {
+            transform: translateX(10px);
+            color: #667eea;
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin: 20px auto;
+            padding: 30px;
+            max-width: 1200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        .footer-section a {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .weather-widget {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .weather-temp {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+        }
+    </style>
 </head>
 <body>
-
     <header>
-        <div class="container">
-            <a href="#" class="logo">KEMENT STUDIOS</a>
-            <nav>
-                <ul>
-                    <li><a href="#hakkimizda">Hakkımızda</a></li>
-                    <li><a href="#oyunlar">Oyunlar</a></li>
-                    <li><a href="#ekibimiz">Ekibimiz</a></li>
-                    <li><a href="#iletisim">İletişim</a></li>
-                </ul>
-            </nav>
+        <div class="header-content">
+            <div class="logo">HaberNet</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Haber ara..." id="searchInput">
+                <button class="search-btn" onclick="searchNews()">🔍</button>
+            </div>
+            <div class="weather-widget">
+                <div class="weather-temp">22°C</div>
+                <div>İstanbul</div>
+            </div>
         </div>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h1>Hayal Gücünü Kementle.</h1>
-            <p>Kement Studios olarak, en parlak fikirleri yakalayıp onları unutulmaz dijital maceralara dönüştürüyoruz.</p>
-            <a href="#oyunlar" class="btn">Oyunlarımızı Keşfet</a>
+    <nav>
+        <div class="nav-links">
+            <a href="#" class="active" onclick="showCategory('all')">Ana Sayfa</a>
+            <a href="#" onclick="showCategory('politics')">Politika</a>
+            <a href="#" onclick="showCategory('sports')">Spor</a>
+            <a href="#" onclick="showCategory('technology')">Teknoloji</a>
+            <a href="#" onclick="showCategory('world')">Dünya</a>
+            <a href="#" onclick="showCategory('economy')">Ekonomi</a>
+            <a href="#" onclick="showCategory('health')">Sağlık</a>
         </div>
-    </section>
+    </nav>
 
-    <section id="hakkimizda">
-        <div class="container">
-            <h2>Fikirleri Yakalar, Oyunları Yaratırız</h2>
-            <p>
-                Biz Kement Studios; bağımsız bir ruhla, büyük bir tutkuyla ve bitmek bilmeyen bir merakla oyunlar geliştiren bir ekibiz. Adımızdaki "Kement" gibi, havada uçuşan ham fikirleri yakalamayı, onları özenle işlemeyi ve oyunculara sunulacak cilalanmış, eğlenceli deneyimlere dönüştürmeyi hedefliyoruz. Misyonumuz, sadece oyun yapmak değil; hikayeler anlatmak, yeni dünyalar yaratmak ve oyuncuları koltuklarının kenarında tutacak mekanikler tasarlamaktır.
-            </p>
+    <main>
+        <div class="breaking-news">
+            <h2><span class="breaking-icon">🔴</span> SON DAKİKA</h2>
+            <p>Teknoloji sektöründe büyük gelişme! Yapay zeka alanında önemli bir atılım gerçekleşti. Detaylar haberimizde...</p>
         </div>
-    </section>
 
-    <section id="oyunlar">
-        <div class="container">
-            <h2>Yarattığımız Dünyalar</h2>
-            <div class="oyunlar-grid">
-                <div class="oyun-karti">
-                    <img src="https://via.placeholder.com/400x250.png/2C3E50/FFFFFF?text=Proje:+VADİ" alt="Proje: VADİ Kapak Görseli">
-                    <h3>Proje: VADİ</h3>
-                    <p>Kayıp bir medeniyetin sırlarını açığa çıkarın. Eşsiz bulmacalar ve nefes kesen manzaralarla dolu kadim bir vadide yolculuğa çıkın.</p>
-                    <span>Platformlar: PC, PlayStation 5</span>
-                </div>
-                <div class="oyun-karti">
-                    <img src="https://via.placeholder.com/400x250.png/E74C3C/FFFFFF?text=Ritim+Kaçakları" alt="Ritim Kaçakları Kapak Görseli">
-                    <h3>Ritim Kaçakları</h3>
-                    <p>Müziğin ritmine kapılarak engelleri aşın ve yüksek skorlar yapın! Reflekslerinizi ve zamanlamanızı test edecek adrenalin dolu bir kaçış.</p>
-                    <span>Platformlar: Mobil (iOS, Android)</span>
-                </div>
-                <div class="oyun-karti">
-                    <img src="https://via.placeholder.com/400x250.png/95A5A6/FFFFFF?text=Çok+Yakında" alt="Yakında Gelecek Oyun">
-                    <h3>Çok Yakında...</h3>
-                    <p>Şu anda üzerinde çalıştığımız yeni projemizle ilgili güncellemeler için bizi takipte kalın! Çok yakında heyecan verici haberlerimiz olacak.</p>
-                     <span>Platformlar: Henüz Duyurulmadı</span>
-                </div>
+        <div class="news-grid" id="newsGrid">
+            <!-- Haberler JavaScript ile yüklenecek -->
+        </div>
+
+        <div class="sidebar">
+            <h3>Popüler Haberler</h3>
+            <div class="trending-item">
+                <strong>Spor:</strong> Galatasaray'dan önemli transfer haberi
+            </div>
+            <div class="trending-item">
+                <strong>Teknoloji:</strong> Yeni iPhone modeli duyuruldu
+            </div>
+            <div class="trending-item">
+                <strong>Ekonomi:</strong> Dolar kurunda son durum
+            </div>
+            <div class="trending-item">
+                <strong>Sağlık:</strong> Koronavirüs vaka sayıları düşüyor
+            </div>
+            <div class="trending-item">
+                <strong>Dünya:</strong> Avrupa'da sıcaklık rekoru kırıldı
             </div>
         </div>
-    </section>
+    </main>
 
-    <section id="ekibimiz">
-        <div class="container">
-            <h2>Ekibimiz</h2>
-            <div class="ekip-grid">
-                <div class="ekip-uyesi">
-                    <img src="https://via.placeholder.com/150" alt="Ahmet Kaya Fotoğrafı">
-                    <h4>Ahmet Kaya</h4>
-                    <span>Kurucu & Kreatif Direktör</span>
-                </div>
-                <div class="ekip-uyesi">
-                    <img src="https://via.placeholder.com/150" alt="Zeynep Demir Fotoğrafı">
-                    <h4>Zeynep Demir</h4>
-                    <span>Lider Geliştirici</span>
-                </div>
-                <div class="ekip-uyesi">
-                    <img src="https://via.placeholder.com/150" alt="Can Öztürk Fotoğrafı">
-                    <h4>Can Öztürk</h4>
-                    <span>Baş Sanatçı / Tasarımcı</span>
-                </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kategoriler</h4>
+                <a href="#">Politika</a>
+                <a href="#">Spor</a>
+                <a href="#">Teknoloji</a>
+                <a href="#">Ekonomi</a>
+            </div>
+            <div class="footer-section">
+                <h4>Hakkımızda</h4>
+                <a href="#">Editör Kadrosu</a>
+                <a href="#">İletişim</a>
+                <a href="#">Künye</a>
+                <a href="#">Gizlilik</a>
+            </div>
+            <div class="footer-section">
+                <h4>Sosyal Medya</h4>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
             </div>
         </div>
-    </section>
-
-    <footer id="iletisim">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-sutun">
-                    <h3>Kement Studios</h3>
-                    <p>© 2025 Kement Studios. Tüm hakları saklıdır. Fikirleri yakalamak için buradayız.</p>
-                </div>
-                <div class="footer-sutun">
-                    <h3>İletişim</h3>
-                    <p>Genel Sorular: <a href="mailto:bilgi@kementstudios.com">bilgi@kementstudios.com</a></p>
-                    <p>İş Geliştirme: <a href="mailto:isbirligi@kementstudios.com">isbirligi@kementstudios.com</a></p>
-                </div>
-                <div class="footer-sutun">
-                    <h3>Bizi Takip Edin</h3>
-                    <div class="sosyal-ikonlar">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="instagram.com/kementstudios"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p>&copy; 2025 HaberNet. Tüm hakları saklıdır.</p>
         </div>
     </footer>
 
+    <script>
+        const newsData = {
+            all: [
+                {
+                    category: 'Teknoloji',
+                    title: 'Yapay Zeka Sektöründe Devrim Niteliğinde Gelişme',
+                    excerpt: 'Türkiye\'nin önde gelen teknoloji şirketleri yapay zeka alanında önemli bir işbirliği başlatıyor. Bu gelişme sektörde yeni fırsatlar yaratacak.',
+                    time: '2 saat önce',
+                    image: 'AI Teknoloji'
+                },
+                {
+                    category: 'Spor',
+                    title: 'Galatasaray\'dan Sürpriz Transfer Hamlesi',
+                    excerpt: 'Sarı-kırmızılı takım yeni sezon hazırlıklarını sürdürürken, orta saha için dünya çapında bir oyuncuyla görüşmelere başladı.',
+                    time: '4 saat önce',
+                    image: 'Futbol'
+                },
+                {
+                    category: 'Ekonomi',
+                    title: 'Merkez Bankası Faiz Kararını Açıkladı',
+                    excerpt: 'Türkiye Cumhuriyet Merkez Bankası para politikası kurulu toplantısında önemli kararlar aldı. Piyasalar bu gelişmeyi yakından takip ediyor.',
+                    time: '6 saat önce',
+                    image: 'Ekonomi'
+                },
+                {
+                    category: 'Sağlık',
+                    title: 'Yeni Tedavi Yöntemi Umut Veriyor',
+                    excerpt: 'Türk bilim insanları tarafından geliştirilen yeni tedavi yöntemi, kanser hastaları için umut ışığı oldu. Klinik deneyler başarılı sonuçlar gösteriyor.',
+                    time: '8 saat önce',
+                    image: 'Sağlık'
+                },
+                {
+                    category: 'Dünya',
+                    title: 'Avrupa\'da Sıcaklık Rekoru Kırıldı',
+                    excerpt: 'Avrupa ülkelerinde yaşanan sıcaklık dalgası yeni rekorlar kırdı. Uzmanlar iklim değişikliğinin etkilerini değerlendiriyor.',
+                    time: '10 saat önce',
+                    image: 'Hava Durumu'
+                },
+                {
+                    category: 'Teknoloji',
+                    title: 'Elektrikli Araç Pazarında Büyük Gelişme',
+                    excerpt: 'Türkiye\'nin elektrikli araç pazarı hızla büyüyor. Yeni teşvikler ve altyapı yatırımları sektörü destekliyor.',
+                    time: '12 saat önce',
+                    image: 'Elektrikli Araç'
+                }
+            ],
+            politics: [
+                {
+                    category: 'Politika',
+                    title: 'Yeni Yasalar Mecliste Görüşülüyor',
+                    excerpt: 'Türkiye Büyük Millet Meclisi\'nde önemli yasal düzenlemeler gündemde. Komisyon çalışmaları devam ediyor.',
+                    time: '1 saat önce',
+                    image: 'Meclis'
+                },
+                {
+                    category: 'Politika',
+                    title: 'Yerel Yönetimler Toplantısı',
+                    excerpt: 'Belediye başkanları önemli projeleri değerlendirmek üzere bir araya geldi. Şehir planlaması konularında görüş alışverişi yapıldı.',
+                    time: '5 saat önce',
+                    image: 'Belediye'
+                }
+            ],
+            sports: [
+                {
+                    category: 'Spor',
+                    title: 'Fenerbahçe\'nin Yeni Transferi',
+                    excerpt: 'Sarı-lacivertli takım yeni sezon için kadrolarını güçlendirmeye devam ediyor. Avrupa\'dan önemli bir transfer gerçekleşti.',
+                    time: '3 saat önce',
+                    image: 'Fenerbahçe'
+                },
+                {
+                    category: 'Spor',
+                    title: 'Milli Takım Kamp Programı',
+                    excerpt: 'A Milli Futbol Takımı yaklaşan maçlar için hazırlıklarını sürdürüyor. Teknik heyet oyuncu seçimlerini değerlendiriyor.',
+                    time: '7 saat önce',
+                    image: 'Milli Takım'
+                }
+            ],
+            technology: [
+                {
+                    category: 'Teknoloji',
+                    title: '5G Teknolojisinde Yeni Gelişmeler',
+                    excerpt: 'Türkiye\'de 5G altyapısı hızla yaygınlaşıyor. Operatörler yeni hizmet alanlarını genişletiyor.',
+                    time: '2 saat önce',
+                    image: '5G'
+                },
+                {
+                    category: 'Teknoloji',
+                    title: 'Siber Güvenlik Önlemleri Artırıldı',
+                    excerpt: 'Dijital dönüşümle birlikte siber güvenlik tedbirleri güçlendiriliyor. Yeni protokoller devreye alındı.',
+                    time: '9 saat önce',
+                    image: 'Siber Güvenlik'
+                }
+            ],
+            world: [
+                {
+                    category: 'Dünya',
+                    title: 'Küresel Enerji Krizi Devam Ediyor',
+                    excerpt: 'Dünya genelinde enerji fiyatlarındaki artış endişeleri sürdürüyor. Uzmanlar alternatif çözümleri değerlendiriyor.',
+                    time: '4 saat önce',
+                    image: 'Enerji'
+                },
+                {
+                    category: 'Dünya',
+                    title: 'Uluslararası Diplomatik Gelişmeler',
+                    excerpt: 'Önemli diplomatik görüşmeler sonucunda yeni anlaşmalar imzalandı. Bölgesel işbirliği güçleniyor.',
+                    time: '11 saat önce',
+                    image: 'Diplomasi'
+                }
+            ],
+            economy: [
+                {
+                    category: 'Ekonomi',
+                    title: 'Borsada Rekor Kırıldı',
+                    excerpt: 'Borsa İstanbul\'da işlem hacmi rekor seviyeye ulaştı. Yatırımcılar olumlu gelişmeleri takip ediyor.',
+                    time: '1 saat önce',
+                    image: 'Borsa'
+                },
+                {
+                    category: 'Ekonomi',
+                    title: 'İhracat Rakamları Açıklandı',
+                    excerpt: 'Türkiye\'nin ihracat performansı güçlü seyirini sürdürüyor. Yeni pazarlara açılım stratejileri belirleniyor.',
+                    time: '6 saat önce',
+                    image: 'İhracat'
+                }
+            ],
+            health: [
+                {
+                    category: 'Sağlık',
+                    title: 'Aşılama Kampanyası Başarılı',
+                    excerpt: 'Ulusal aşılama kampanyası hedeflenen başarıya ulaştı. Sağlık Bakanlığı yeni dönem planlarını açıkladı.',
+                    time: '3 saat önce',
+                    image: 'Aşı'
+                },
+                {
+                    category: 'Sağlık',
+                    title: 'Hastane Kapasitesi Artırıldı',
+                    excerpt: 'Sağlık altyapısı güçlendiriliyor. Yeni hastane yatırımları hasta memnuniyetini artırıyor.',
+                    time: '8 saat önce',
+                    image: 'Hastane'
+                }
+            ]
+        };
+
+        let currentCategory = 'all';
+
+        function displayNews(category) {
+            const newsGrid = document.getElementById('newsGrid');
+            const news = newsData[category] || newsData.all;
+            
+            newsGrid.innerHTML = '';
+            
+            news.forEach(item => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                newsCard.innerHTML = `
+                    <div class="news-image">${item.image}</div>
+                    <div class="news-content">
+                        <span class="news-category">${item.category}</span>
+                        <h3 class="news-title">${item.title}</h3>
+                        <p class="news-excerpt">${item.excerpt}</p>
+                        <div class="news-meta">
+                            <span>${item.time}</span>
+                            <a href="#" class="read-more">Devamını Oku</a>
+                        </div>
+                    </div>
+                `;
+                newsGrid.appendChild(newsCard);
+            });
+        }
+
+        function showCategory(category) {
+            currentCategory = category;
+            displayNews(category);
+            
+            // Aktif kategori vurgusu
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function searchNews() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (!searchTerm) {
+                displayNews(currentCategory);
+                return;
+            }
+            
+            const allNews = Object.values(newsData).flat();
+            const filteredNews = allNews.filter(item => 
+                item.title.toLowerCase().includes(searchTerm) || 
+                item.excerpt.toLowerCase().includes(searchTerm)
+            );
+            
+            const newsGrid = document.getElementById('newsGrid');
+            newsGrid.innerHTML = '';
+            
+            if (filteredNews.length === 0) {
+                newsGrid.innerHTML = '<p style="text-align: center; color: #666; font-size: 1.2em;">Aradığınız kriterlere uygun haber bulunamadı.</p>';
+                return;
+            }
+            
+            filteredNews.forEach(item => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                newsCard.innerHTML = `
+                    <div class="news-image">${item.image}</div>
+                    <div class="news-content">
+                        <span class="news-category">${item.category}</span>
+                        <h3 class="news-title">${item.title}</h3>
+                        <p class="news-excerpt">${item.excerpt}</p>
+                        <div class="news-meta">
+                            <span>${item.time}</span>
+                            <a href="#" class="read-more">Devamını Oku</a>
+                        </div>
+                    </div>
+                `;
+                newsGrid.appendChild(newsCard);
+            });
+        }
+
+        // Enter tuşu ile arama
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchNews();
+            }
+        });
+
+        // Sayfa yüklendiğinde haberleri göster
+        document.addEventListener('DOMContentLoaded', function() {
+            displayNews('all');
+        });
+
+        // Haber kartlarına tıklama efekti
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.news-card')) {
+                const card = e.target.closest('.news-card');
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-10px)';
+                }, 150);
+            }
+        });
+    </script>
 </body>
 </html>
